@@ -7,6 +7,7 @@ import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Home from './pages/Home';
 import Users from './pages/Users';
+import WIP from './pages/WIP';
 import './styles/global/App.module.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/wip" element={<WIP />} />
             </Routes>
           </Layout>
         </ProtectedRoute>

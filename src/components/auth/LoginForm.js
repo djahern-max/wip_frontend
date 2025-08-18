@@ -1,5 +1,6 @@
 // ===== frontend/src/components/auth/LoginForm.js =====
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import Button from '../common/Button';
 import styles from '../../styles/components/LoginForm.module.css';
@@ -13,6 +14,7 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         setFormData({
@@ -29,7 +31,10 @@ const LoginForm = () => {
 
         const result = await login(formData.username, formData.password);
 
-        if (!result.success) {
+        if (result.success) {
+            // Navigate to WIP dashboard on successful login
+            navigate('/wip');
+        } else {
             setError(result.error);
         }
 

@@ -70,3 +70,58 @@ export const healthCheck = async () => {
 };
 
 export default api;
+// WIP API functions
+export const getWIPItems = async () => {
+    const response = await api.get('/wip/');
+    return response.data;
+};
+
+export const createWIPItem = async (wipData) => {
+    const response = await api.post('/wip/', wipData);
+    return response.data;
+};
+
+export const getWIPItem = async (wipId) => {
+    const response = await api.get(`/wip/${wipId}`);
+    return response.data;
+};
+
+export const updateWIPItem = async (wipId, wipData) => {
+    const response = await api.put(`/wip/${wipId}`, wipData);
+    return response.data;
+};
+
+export const deleteWIPItem = async (wipId) => {
+    const response = await api.delete(`/wip/${wipId}`);
+    return response.data;
+};
+
+
+
+export const uploadWIPCSV = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await api.post('/wip/upload-csv', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return response.data;
+};
+
+export const downloadCSVTemplate = async () => {
+    const response = await api.get('/wip/template', {
+        responseType: 'blob',
+    });
+
+    // Create download link
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'wip_template.csv');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+};
